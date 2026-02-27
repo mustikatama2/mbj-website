@@ -93,7 +93,9 @@ h1,h2,h3,h4{font-family:'Merriweather',Georgia,serif;line-height:1.25}
 
 /* HERO */
 .hero{position:relative;min-height:520px;display:flex;align-items:center;background:var(--dark);overflow:hidden}
-.hero-bg{position:absolute;inset:0;background-image:url('https://mbj.mustikatama.com/wp-content/uploads/2019/08/main-officve-2.jpg');background-size:cover;background-position:center;filter:brightness(.38)}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1800&q=85');background-size:cover;background-position:center 40%;filter:brightness(.38) saturate(1.1)}
+/* warm amber overlay — gives wood workshop feel */
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(20,10,0,.75) 0%,rgba(80,40,0,.3) 100%);z-index:1}
 .hero-content{position:relative;z-index:2;padding:80px 0}
 .hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--yellow);margin-bottom:20px;display:flex;align-items:center;gap:10px}
 .hero-eyebrow::before{content:'';display:block;width:32px;height:2px;background:var(--yellow)}
@@ -138,6 +140,15 @@ h1,h2,h3,h4{font-family:'Merriweather',Georgia,serif;line-height:1.25}
 .product-specs{border-top:1px solid var(--gray-mid);padding-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .spec-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
 .spec-value{font-size:.8125rem;font-weight:600;color:var(--text);margin-top:2px}
+
+/* WOOD GRAIN DIVIDER */
+.wood-divider{height:180px;position:relative;overflow:hidden}
+.wood-divider-img{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1516912481808-3406841bd33c?w=1600&q=80');background-size:cover;background-position:center;filter:brightness(.45) saturate(1.2)}
+.wood-divider-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,10,0,.88) 0%,rgba(40,20,0,.5) 50%,rgba(20,10,0,.88) 100%);display:flex;align-items:center;justify-content:center}
+.wood-divider-text{text-align:center;color:#fff}
+.wood-divider-text h3{font-family:'Merriweather',serif;font-size:1.5rem;font-weight:700;color:#fff;margin-bottom:6px}
+.wood-divider-text p{font-size:.9375rem;color:rgba(255,255,255,.65);letter-spacing:.5px}
+.wood-divider-text em{color:var(--yellow);font-style:normal;font-weight:700}
 
 /* WHY */
 .why-mbj{padding:80px 0;background:#fff}
@@ -263,6 +274,7 @@ h1,h2,h3,h4{font-family:'Merriweather',Georgia,serif;line-height:1.25}
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
   <div class="container hero-content">
     <div class="hero-eyebrow">Finger-Joint Laminated Board Manufacturer</div>
     <h1>Precision <em>FJLB Panels</em> from East Java's Trusted Wood Specialist</h1>
@@ -305,7 +317,7 @@ h1,h2,h3,h4{font-family:'Merriweather',Georgia,serif;line-height:1.25}
         <a href="#rfq" class="btn-green" style="margin-top:8px">Discuss Your Requirements</a>
       </div>
       <div class="about-photo">
-        <img src="https://mbj.mustikatama.com/wp-content/uploads/2019/08/main-officve-2.jpg" alt="PT Mustika Bahana Jaya office and facility, Lumajang East Java" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1541123437800-1bb1317badc2?w=800&q=80" alt="MBJ wood-working workshop — FJLB production, Lumajang East Java" loading="lazy">
         <div class="about-badge">
           <div class="num">1996</div>
           <div class="lbl">Established</div>
@@ -383,6 +395,17 @@ h1,h2,h3,h4{font-family:'Merriweather',Georgia,serif;line-height:1.25}
     </p>
   </div>
 </section>
+
+<!-- WOOD GRAIN DIVIDER -->
+<div class="wood-divider">
+  <div class="wood-divider-img"></div>
+  <div class="wood-divider-overlay">
+    <div class="wood-divider-text">
+      <h3>Crafted from <em>Premium Wood Species</em></h3>
+      <p>Rubberwood · Merkusii Pine · Albizia Falcata — precision finger-jointed to your specification</p>
+    </div>
+  </div>
+</div>
 
 <!-- WHY MBJ -->
 <section class="why-mbj">
