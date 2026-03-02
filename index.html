@@ -96,7 +96,7 @@ h1,h2,h3,h4{font-family:'Merriweather',Georgia,serif;line-height:1.25}
 /* NAVBAR */
 .navbar{position:sticky;top:0;z-index:999;background:#fff;border-bottom:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.06)}
 .navbar .container{display:flex;align-items:center;justify-content:space-between;height:var(--nav-h)}
-.nav-logo{display:flex;flex-direction:column;line-height:1.2}
+.nav-logo{display:flex;flex-direction:row;align-items:center;gap:10px}
 .nav-logo-name{font-family:'Merriweather',serif;font-size:1.25rem;font-weight:900;color:var(--dark);letter-spacing:1px}
 .nav-logo-sub{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
 .nav-links{display:flex;gap:28px;list-style:none;align-items:center}
@@ -302,9 +302,12 @@ h1,h2,h3,h4{font-family:'Merriweather',Georgia,serif;line-height:1.25}
 <!-- NAVBAR -->
 <nav class="navbar">
   <div class="container">
-    <a href="#" class="nav-logo" style="display:flex;align-items:center;gap:10px">
-      <img src="/assets/brand/Logo%20Mustikatama%20v2.png" alt="Mustikatama Group" style="height:40px;width:auto;object-fit:contain">
-      <span style="display:flex;flex-direction:column;line-height:1.2"><span class="nav-logo-name">MBJ</span><span class="nav-logo-sub">PT Mustika Bahana Jaya</span></span>
+    <a href="#" class="nav-logo">
+      <img src="/assets/brand/Logo%20Mustikatama%20v2.png" alt="Mustikatama Group" style="height:48px;width:auto;object-fit:contain">
+      <span style="display:flex;flex-direction:column;line-height:1.25">
+        <span style="font-family:'Merriweather',serif;font-size:.9375rem;font-weight:900;color:var(--dark);letter-spacing:.5px">PT Mustika Bahana Jaya</span>
+        <span class="nav-logo-sub">Lumajang, East Java · Est. 1996</span>
+      </span>
     </a>
     <ul class="nav-links">
       <li><a href="#products">Products</a></li>
