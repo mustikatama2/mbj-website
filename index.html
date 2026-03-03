@@ -154,6 +154,7 @@ h1,h2,h3,h4{font-family:'Merriweather',Georgia,serif;line-height:1.25}
 .card-dots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:2}
 .card-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.45);cursor:pointer;border:none;padding:0;transition:background .2s,transform .2s}
 .card-dot.active{background:#fff;transform:scale(1.25)}
+.card-single-img{width:100%;height:100%;object-fit:cover;display:block}
 /* ── Photo gallery strip ── */
 .gallery-strip-wrap{background:#111;overflow:hidden}
 .gallery-tiles{display:flex;overflow-x:auto;gap:3px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
@@ -421,18 +422,7 @@ h1,h2,h3,h4{font-family:'Merriweather',Georgia,serif;line-height:1.25}
 
       <div class="product-card">
         <div class="product-card-img">
-          <div class="card-slides" data-slider>
-            <div class="card-slide"><img src="/assets/photos/process/FJLB%20(12).JPG"          alt="Rubberwood FJLB" loading="lazy"></div>
-            <div class="card-slide"><img src="/assets/photos/products/fjlb-blocks-1.jpg"        alt="Rubberwood FJLB blocks" loading="lazy"></div>
-            <div class="card-slide"><img src="/assets/photos/products/fjlb-blocks-2.jpg"        alt="Rubberwood FJLB stacked" loading="lazy"></div>
-            <div class="card-slide"><img src="/assets/photos/products/fjlb-surface-1.jpg"       alt="Rubberwood FJLB surface detail" loading="lazy"></div>
-          </div>
-          <div class="card-dots">
-            <button class="card-dot active" data-idx="0"></button>
-            <button class="card-dot" data-idx="1"></button>
-            <button class="card-dot" data-idx="2"></button>
-            <button class="card-dot" data-idx="3"></button>
-          </div>
+          <img src="/assets/photos/products/rubberwood-fjlb.jpg" alt="Rubberwood Finger-Joint Laminated Board" loading="lazy" class="card-single-img">
         </div>
         <div class="product-card-body">
           <span class="product-tag">Premium Grade</span>
