@@ -146,9 +146,22 @@ h1,h2,h3,h4{font-family:'Merriweather',Georgia,serif;line-height:1.25}
 .products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border)}
 .product-card{background:#fff;display:flex;flex-direction:column;overflow:hidden;transition:box-shadow .25s}
 .product-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.12);position:relative;z-index:1}
-.product-card-img{aspect-ratio:16/10;overflow:hidden}
-.product-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
-.product-card:hover .product-card-img img{transform:scale(1.04)}
+.product-card-img{aspect-ratio:16/10;overflow:hidden;position:relative}
+/* ── Card photo slider ── */
+.card-slides{display:flex;height:100%;transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.card-slide{min-width:100%;height:100%;flex-shrink:0;overflow:hidden}
+.card-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.card-dots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:2}
+.card-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.45);cursor:pointer;border:none;padding:0;transition:background .2s,transform .2s}
+.card-dot.active{background:#fff;transform:scale(1.25)}
+/* ── Photo gallery strip ── */
+.gallery-strip-wrap{background:#111;overflow:hidden}
+.gallery-tiles{display:flex;overflow-x:auto;gap:3px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.gallery-tiles::-webkit-scrollbar{display:none}
+.gallery-tile{flex:0 0 auto;width:320px;height:220px;overflow:hidden;scroll-snap-align:start;cursor:grab}
+.gallery-tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease;filter:brightness(.9)}
+.gallery-tile:hover img{transform:scale(1.05);filter:brightness(1)}
+@media(max-width:768px){.gallery-tile{width:240px;height:170px}}
 .product-card-body{padding:24px 24px 28px;flex:1;display:flex;flex-direction:column}
 .product-tag{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);border:1px solid var(--green);display:inline-block;padding:3px 8px;margin-bottom:10px}
 .product-card h3{font-family:'Merriweather',serif;font-size:1.2rem;font-weight:700;color:var(--dark);margin-bottom:10px}
@@ -366,7 +379,7 @@ h1,h2,h3,h4{font-family:'Merriweather',Georgia,serif;line-height:1.25}
         <a href="#rfq" class="btn-green" style="margin-top:8px">Discuss Your Requirements</a>
       </div>
       <div class="about-photo">
-        <img src="/assets/photos/process/FJLB%20(11).JPG" alt="MBJ workers — FJLB production and packaging, Lumajang East Java" loading="lazy">
+        <img src="/assets/photos/people/factory-floor.jpg" alt="MBJ workers on the FJLB production floor, Lumajang East Java" loading="lazy">
         <div class="about-badge">
           <div class="num">1996</div>
           <div class="lbl">Established</div>
@@ -375,6 +388,19 @@ h1,h2,h3,h4{font-family:'Merriweather',Georgia,serif;line-height:1.25}
     </div>
   </div>
 </section>
+
+<!-- PHOTO GALLERY STRIP -->
+<div class="gallery-strip-wrap">
+  <div class="gallery-tiles" id="galleryTiles">
+    <div class="gallery-tile"><img src="/assets/photos/facility/timber-cube-wall.jpg"       alt="Timber cube wall — MBJ facility" loading="lazy"></div>
+    <div class="gallery-tile"><img src="/assets/photos/people/factory-floor.jpg"            alt="MBJ production floor with workers" loading="lazy"></div>
+    <div class="gallery-tile"><img src="/assets/photos/facility/timber-planks-panoramic.jpg" alt="Stacked timber planks" loading="lazy"></div>
+    <div class="gallery-tile"><img src="/assets/photos/process/glue-press.jpg"              alt="Hydraulic glue press machine" loading="lazy"></div>
+    <div class="gallery-tile"><img src="/assets/photos/products/fjlb-planks-diagonal.jpg"   alt="FJLB planks diagonal" loading="lazy"></div>
+    <div class="gallery-tile"><img src="/assets/photos/process/battens-sorted.jpg"          alt="Sorted timber battens" loading="lazy"></div>
+    <div class="gallery-tile"><img src="/assets/photos/products/fjlb-joint-detail.jpg"      alt="Finger joint detail" loading="lazy"></div>
+  </div>
+</div>
 
 <!-- PRODUCTS -->
 <section class="products" id="products">
@@ -389,7 +415,16 @@ h1,h2,h3,h4{font-family:'Merriweather',Georgia,serif;line-height:1.25}
 
       <div class="product-card">
         <div class="product-card-img">
-          <img src="/assets/photos/process/FJLB%20(12).JPG" alt="Rubberwood Finger-Joint Laminated Board" loading="lazy">
+          <div class="card-slides" data-slider>
+            <div class="card-slide"><img src="/assets/photos/process/FJLB%20(12).JPG"          alt="Rubberwood FJLB" loading="lazy"></div>
+            <div class="card-slide"><img src="/assets/photos/products/fjlb-blocks-1.jpg"        alt="Rubberwood FJLB blocks" loading="lazy"></div>
+            <div class="card-slide"><img src="/assets/photos/products/fjlb-blocks-2.jpg"        alt="Rubberwood FJLB stacked" loading="lazy"></div>
+          </div>
+          <div class="card-dots">
+            <button class="card-dot active" data-idx="0"></button>
+            <button class="card-dot" data-idx="1"></button>
+            <button class="card-dot" data-idx="2"></button>
+          </div>
         </div>
         <div class="product-card-body">
           <span class="product-tag">Premium Grade</span>
@@ -406,7 +441,16 @@ h1,h2,h3,h4{font-family:'Merriweather',Georgia,serif;line-height:1.25}
 
       <div class="product-card">
         <div class="product-card-img">
-          <img src="/assets/photos/process/FJLB%20(13).JPG" alt="Merkusii Pinewood Finger-Joint Laminated Board" loading="lazy">
+          <div class="card-slides" data-slider>
+            <div class="card-slide"><img src="/assets/photos/process/FJLB%20(13).JPG"               alt="Merkusii Pine FJLB" loading="lazy"></div>
+            <div class="card-slide"><img src="/assets/photos/products/fjlb-planks-diagonal.jpg"      alt="Merkusii Pine FJLB planks" loading="lazy"></div>
+            <div class="card-slide"><img src="/assets/photos/products/fjlb-joint-detail.jpg"         alt="Finger joint detail" loading="lazy"></div>
+          </div>
+          <div class="card-dots">
+            <button class="card-dot active" data-idx="0"></button>
+            <button class="card-dot" data-idx="1"></button>
+            <button class="card-dot" data-idx="2"></button>
+          </div>
         </div>
         <div class="product-card-body">
           <span class="product-tag">Export Grade</span>
@@ -423,7 +467,16 @@ h1,h2,h3,h4{font-family:'Merriweather',Georgia,serif;line-height:1.25}
 
       <div class="product-card">
         <div class="product-card-img">
-          <img src="/assets/photos/process/prep-l-6.jpg" alt="Albizia Falcata Finger-Joint Laminated Board" loading="lazy">
+          <div class="card-slides" data-slider>
+            <div class="card-slide"><img src="/assets/photos/process/prep-l-6.jpg"             alt="Albizia Falcata FJLB" loading="lazy"></div>
+            <div class="card-slide"><img src="/assets/photos/products/fjlb-end-view.jpg"        alt="Albizia Falcata FJLB end view" loading="lazy"></div>
+            <div class="card-slide"><img src="/assets/photos/facility/timber-cube-wall.jpg"     alt="Timber stack facility" loading="lazy"></div>
+          </div>
+          <div class="card-dots">
+            <button class="card-dot active" data-idx="0"></button>
+            <button class="card-dot" data-idx="1"></button>
+            <button class="card-dot" data-idx="2"></button>
+          </div>
         </div>
         <div class="product-card-body">
           <span class="product-tag">Sustainable</span>
@@ -570,15 +623,15 @@ h1,h2,h3,h4{font-family:'Merriweather',Georgia,serif;line-height:1.25}
         <div class="process-step-body"><div class="step-num">STEP 01</div><h4>Raw Material Selection</h4><p>Logs are graded by species, moisture content and structural quality. Only approved material enters production.</p></div>
       </div>
       <div class="process-step">
-        <div class="process-step-img"><img src="/assets/photos/products/CR-3.jpg" alt="Cutting and finger jointing" loading="lazy"></div>
+        <div class="process-step-img"><img src="/assets/photos/process/battens-sorted.jpg" alt="Cutting and finger jointing" loading="lazy"></div>
         <div class="process-step-body"><div class="step-num">STEP 02</div><h4>Cutting &amp; Finger Jointing</h4><p>Timber is cross-cut, end-profiled with precision finger joints and glued under controlled pressure for maximum bond strength.</p></div>
       </div>
       <div class="process-step">
-        <div class="process-step-img"><img src="/assets/photos/people/qc-12.jpg" alt="Lamination and QC" loading="lazy"></div>
+        <div class="process-step-img"><img src="/assets/photos/process/glue-press.jpg" alt="Lamination and QC — hydraulic glue press" loading="lazy"></div>
         <div class="process-step-body"><div class="step-num">STEP 03</div><h4>Lamination &amp; QC</h4><p>Finger-jointed strips are edge-glued and cold-pressed into panels. Boards are checked for flatness, thickness tolerance and emission levels.</p></div>
       </div>
       <div class="process-step">
-        <div class="process-step-img"><img src="/assets/photos/products/CR-6.jpg" alt="Sanding and packaging" loading="lazy"></div>
+        <div class="process-step-img"><img src="/assets/photos/products/fjlb-end-view.jpg" alt="Sanding and packaging — FJLB finished boards" loading="lazy"></div>
         <div class="process-step-body"><div class="step-num">STEP 04</div><h4>Sanding &amp; Packaging</h4><p>Panels are double-belt sanded to specified grit, cut to final dimensions and packaged with full labelling for export or domestic delivery.</p></div>
       </div>
     </div>
@@ -724,6 +777,31 @@ document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',
 <script>
 function showSpec(e,id){document.querySelectorAll('.spec-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.spec-tab').forEach(t=>t.classList.remove('active'));document.getElementById(id).classList.add('active');e.target.classList.add('active')}
 function toggleFaq(el){const item=el.closest('.faq-item');const ans=item.querySelector('.faq-a');const isOpen=item.classList.contains('open');document.querySelectorAll('.faq-item.open').forEach(i=>{i.classList.remove('open');i.querySelector('.faq-a').style.display='none'});if(!isOpen){item.classList.add('open');ans.style.display='block'}}
+</script>
+<script>
+/* ── Product card photo slider ── */
+document.querySelectorAll('.product-card-img').forEach(function(wrap){
+  var slides=wrap.querySelector('.card-slides');
+  if(!slides)return;
+  var dots=wrap.querySelectorAll('.card-dot');
+  var count=slides.querySelectorAll('.card-slide').length;
+  var cur=0,timer;
+  function goTo(idx){cur=(idx+count)%count;slides.style.transform='translateX(-'+(cur*100)+'%)';dots.forEach(function(d,i){d.classList.toggle('active',i===cur)});}
+  dots.forEach(function(dot){dot.addEventListener('click',function(){clearInterval(timer);goTo(+this.dataset.idx);startAuto();});});
+  function startAuto(){timer=setInterval(function(){goTo(cur+1);},3800);}
+  startAuto();
+});
+/* ── Gallery tiles drag-scroll ── */
+(function(){
+  var el=document.getElementById('galleryTiles');
+  if(!el)return;
+  var down=false,startX,sLeft;
+  el.style.cursor='grab';
+  el.addEventListener('mousedown',function(e){down=true;startX=e.pageX-el.offsetLeft;sLeft=el.scrollLeft;el.style.cursor='grabbing';});
+  el.addEventListener('mouseleave',function(){down=false;el.style.cursor='grab';});
+  el.addEventListener('mouseup',function(){down=false;el.style.cursor='grab';});
+  el.addEventListener('mousemove',function(e){if(!down)return;e.preventDefault();el.scrollLeft=sLeft-(e.pageX-el.offsetLeft-startX);});
+})();
 </script>
 
 </body>
