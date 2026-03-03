@@ -156,13 +156,17 @@ h1,h2,h3,h4{font-family:'Merriweather',Georgia,serif;line-height:1.25}
 .card-dot.active{background:#fff;transform:scale(1.25)}
 .card-single-img{width:100%;height:100%;object-fit:cover;display:block}
 /* ── Photo gallery strip ── */
-.gallery-strip-wrap{background:#111;overflow:hidden}
-.gallery-tiles{display:flex;overflow-x:auto;gap:3px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.gallery-strip-wrap{background:#111;overflow:hidden;position:relative}
+.gallery-tiles{display:flex;overflow-x:auto;gap:3px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .gallery-tiles::-webkit-scrollbar{display:none}
-.gallery-tile{flex:0 0 auto;width:320px;height:220px;overflow:hidden;scroll-snap-align:start;cursor:grab}
+.gallery-tile{flex:0 0 auto;width:320px;height:220px;overflow:hidden}
 .gallery-tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease;filter:brightness(.9)}
 .gallery-tile:hover img{transform:scale(1.05);filter:brightness(1)}
-@media(max-width:768px){.gallery-tile{width:240px;height:170px}}
+.gallery-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:10;background:rgba(0,0,0,.55);border:none;color:#fff;width:42px;height:42px;border-radius:50%;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.gallery-arrow:hover{background:rgba(0,0,0,.85)}
+.gallery-arrow.prev{left:12px}
+.gallery-arrow.next{right:12px}
+@media(max-width:768px){.gallery-tile{width:240px;height:170px}.gallery-arrow{width:34px;height:34px;font-size:.9rem}}
 .product-card-body{padding:24px 24px 28px;flex:1;display:flex;flex-direction:column}
 .product-tag{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);border:1px solid var(--green);display:inline-block;padding:3px 8px;margin-bottom:10px}
 .product-card h3{font-family:'Merriweather',serif;font-size:1.2rem;font-weight:700;color:var(--dark);margin-bottom:10px}
@@ -392,6 +396,8 @@ h1,h2,h3,h4{font-family:'Merriweather',Georgia,serif;line-height:1.25}
 
 <!-- PHOTO GALLERY STRIP -->
 <div class="gallery-strip-wrap">
+  <button class="gallery-arrow prev" id="galleryPrev" aria-label="Previous">&#8592;</button>
+  <button class="gallery-arrow next" id="galleryNext" aria-label="Next">&#8594;</button>
   <div class="gallery-tiles" id="galleryTiles">
     <div class="gallery-tile"><img src="/assets/photos/facility/loading-dock.jpg"            alt="Export loading dock — 5 containers" loading="lazy"></div>
     <div class="gallery-tile"><img src="/assets/photos/facility/timber-cube-wall.jpg"       alt="Timber cube wall — MBJ facility" loading="lazy"></div>
@@ -731,16 +737,46 @@ document.querySelectorAll('.product-card-img').forEach(function(wrap){
   function startAuto(){timer=setInterval(function(){goTo(cur+1);},3800);}
   startAuto();
 });
-/* ── Gallery tiles drag-scroll ── */
+/* ── Gallery strip: auto-scroll + arrows ── */
 (function(){
   var el=document.getElementById('galleryTiles');
   if(!el)return;
-  var down=false,startX,sLeft;
-  el.style.cursor='grab';
-  el.addEventListener('mousedown',function(e){down=true;startX=e.pageX-el.offsetLeft;sLeft=el.scrollLeft;el.style.cursor='grabbing';});
-  el.addEventListener('mouseleave',function(){down=false;el.style.cursor='grab';});
-  el.addEventListener('mouseup',function(){down=false;el.style.cursor='grab';});
-  el.addEventListener('mousemove',function(e){if(!down)return;e.preventDefault();el.scrollLeft=sLeft-(e.pageX-el.offsetLeft-startX);});
+
+  /* Duplicate tiles for seamless infinite loop */
+  var origTiles=Array.from(el.children);
+  origTiles.forEach(function(t){el.appendChild(t.cloneNode(true));});
+  var halfW=el.scrollWidth/2;
+
+  /* Auto-scroll */
+  var paused=false,raf;
+  var speed=0.6; /* px per frame */
+  function tick(){
+    if(!paused){
+      el.scrollLeft+=speed;
+      if(el.scrollLeft>=halfW) el.scrollLeft-=halfW; /* seamless jump */
+    }
+    raf=requestAnimationFrame(tick);
+  }
+  raf=requestAnimationFrame(tick);
+
+  /* Pause on hover */
+  el.addEventListener('mouseenter',function(){paused=true;});
+  el.addEventListener('mouseleave',function(){paused=false;});
+  el.addEventListener('touchstart',function(){paused=true;},{passive:true});
+  el.addEventListener('touchend',function(){setTimeout(function(){paused=false;},2000);},{passive:true});
+
+  /* Arrow buttons */
+  var tileW=origTiles[0]?origTiles[0].offsetWidth+3:323;
+  document.getElementById('galleryPrev').addEventListener('click',function(){
+    paused=true;
+    el.scrollBy({left:-tileW*2,behavior:'smooth'});
+    setTimeout(function(){paused=false;},1200);
+  });
+  document.getElementById('galleryNext').addEventListener('click',function(){
+    paused=true;
+    el.scrollBy({left:tileW*2,behavior:'smooth'});
+    setTimeout(function(){paused=false;},1200);
+  });
 })();
 </script>
 
